@@ -43,16 +43,16 @@ class Cam:
 				utils.draw_circle(image, (pup[0], pup[1]))
 
 	def __detect_ert(self, image, show_eye_rect=False):
-			gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-			eyes = self.eye_detector.predict(image)
-			if eyes:
-				for eye in eyes:
-					(x1, y1, x2, y2) = eye[0], eye[1], eye[2], eye[3]
-					if show_eye_rect:
-						utils.draw_rect(image, (x1, y1), (x2, y2), color=(0, 255, 0))
-					rect = dlib.rectangle(x1, y1, x2, y2)
-					x, y = self.pupil_detector.predict(gray, rect)
-					utils.draw_circle(image, (x, y))
+		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+		eyes = self.eye_detector.predict(image)
+		if eyes:
+			for eye in eyes:
+				(x1, y1, x2, y2) = eye[0], eye[1], eye[2], eye[3]
+				if show_eye_rect:
+					utils.draw_rect(image, (x1, y1), (x2, y2), color=(0, 255, 0))
+				rect = dlib.rectangle(x1, y1, x2, y2)
+				x, y = self.pupil_detector.predict(gray, rect)
+				utils.draw_circle(image, (x, y))
 
 	def __calc_fps(self, frame_count, elapsed_time):
 		return int(frame_count / elapsed_time)
